@@ -1,0 +1,3 @@
+[submodule "Dependemcies"]
+	path = Dependemcies
+	url = https://AV8R-@github.com/ReactiveX/RxSwift.git
