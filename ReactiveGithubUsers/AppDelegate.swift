@@ -7,15 +7,40 @@
 //
 
 import UIKit
+import RxSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let requestStream = Observable.just("https://api.github.com/users")
+        
+        let responseStream = requestStream.flatMap { (string: String) -> Observable<[[String: Any]]> in
+            let url = URL(string: string)!
+            return Observable<[[String: Any]]>.create { observer in
+                URLSession.shared.dataTask(with: url) { (data, respnse, error) in
+                    if let data = data {
+                        let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String: Any]]
+                        observer.onNext(json)
+                    }
+                    
+                    if let error = error {
+                        observer.onError(error)
+                    }
+                    
+                    observer.onCompleted()
+                    }.resume()
+                return Disposables.create()
+            }
+        }
+        
+        _=responseStream.subscribe { event in
+            dump(event.element)
+        }
+        
         return true
     }
 
