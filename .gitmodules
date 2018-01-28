@@ -1,3 +1,6 @@
 [submodule "Dependemcies"]
 	path = Dependemcies
 	url = https://AV8R-@github.com/ReactiveX/RxSwift.git
+[submodule "Dependencies/Alamofire"]
+	path = Dependencies/Alamofire
+	url = git@github.com:Alamofire/Alamofire.git
