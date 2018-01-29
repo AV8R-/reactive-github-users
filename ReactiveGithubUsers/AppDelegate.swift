@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,21 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let requestStream = Observable.just("https://api.github.com/users")
         
-        let responseStream = requestStream.flatMap { (string: String) -> Observable<[[String: Any]]> in
-            let url = URL(string: string)!
-            return Observable<[[String: Any]]>.create { observer in
-                URLSession.shared.dataTask(with: url) { (data, respnse, error) in
-                    if let data = data {
-                        let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String: Any]]
-                        observer.onNext(json)
-                    }
-                    
-                    if let error = error {
-                        observer.onError(error)
-                    }
-                    
-                    observer.onCompleted()
-                    }.resume()
+        let responseStream = requestStream.flatMap { url -> Observable<DataResponse<Any>> in
+            return Observable<DataResponse<Any>>.create { observer in
+                Alamofire.request(url).responseJSON { response in
+                    observer.onNext(response)
+                }
                 return Disposables.create()
             }
         }
