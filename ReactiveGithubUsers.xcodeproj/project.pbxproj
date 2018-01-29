@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		30236C36201E9A82005BA11F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30236C15201E9A7A005BA11F /* Alamofire.framework */; };
 		30236C37201E9A82005BA11F /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30236C15201E9A7A005BA11F /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30236C3A201EA7F1005BA11F /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 307BBB28201CB32100D0283A /* RxCocoa.framework */; };
+		30236C3B201EA7F1005BA11F /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 307BBB28201CB32100D0283A /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		307BBAE8201CB1E400D0283A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307BBAE7201CB1E400D0283A /* AppDelegate.swift */; };
 		307BBAEA201CB1E400D0283A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307BBAE9201CB1E400D0283A /* ViewController.swift */; };
 		307BBAED201CB1E400D0283A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307BBAEB201CB1E400D0283A /* Main.storyboard */; };
@@ -75,6 +77,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
 			remoteInfo = "Alamofire iOS";
+		};
+		30236C3C201EA7F1005BA11F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 307BBB07201CB32100D0283A /* Rx.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C80938F51B8A71760088E94D;
+			remoteInfo = "RxCocoa-iOS";
 		};
 		307BBAF9201CB1E400D0283A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -246,6 +255,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				30236C3B201EA7F1005BA11F /* RxCocoa.framework in Embed Frameworks */,
 				307BBB4A201CB34000D0283A /* RxSwift.framework in Embed Frameworks */,
 				30236C37201E9A82005BA11F /* Alamofire.framework in Embed Frameworks */,
 			);
@@ -274,6 +284,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30236C3A201EA7F1005BA11F /* RxCocoa.framework in Frameworks */,
 				307BBB49201CB34000D0283A /* RxSwift.framework in Frameworks */,
 				30236C36201E9A82005BA11F /* Alamofire.framework in Frameworks */,
 			);
@@ -390,6 +401,7 @@
 			dependencies = (
 				307BBB4C201CB34000D0283A /* PBXTargetDependency */,
 				30236C39201E9A82005BA11F /* PBXTargetDependency */,
+				30236C3D201EA7F1005BA11F /* PBXTargetDependency */,
 			);
 			name = ReactiveGithubUsers;
 			productName = ReactiveGithubUsers;
@@ -709,6 +721,11 @@
 			isa = PBXTargetDependency;
 			name = "Alamofire iOS";
 			targetProxy = 30236C38201E9A82005BA11F /* PBXContainerItemProxy */;
+		};
+		30236C3D201EA7F1005BA11F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "RxCocoa-iOS";
+			targetProxy = 30236C3C201EA7F1005BA11F /* PBXContainerItemProxy */;
 		};
 		307BBAFA201CB1E400D0283A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

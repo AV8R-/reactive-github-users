@@ -7,12 +7,27 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Initial load
+        
+        let requestStream = Observable.just("https://api.github.com/users")
+        
+        
+        let responseStream = requestStream.flatMap { url -> Observable<Any> in
+            return URLSession.shared.rx.json(url: URL(string: url)!)
+        }
+        
+        _=responseStream.subscribe { event in
+            dump(event.element)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {

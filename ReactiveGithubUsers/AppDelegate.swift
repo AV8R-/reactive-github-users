@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import RxSwift
-import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,22 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        let requestStream = Observable.just("https://api.github.com/users")
-        
-        let responseStream = requestStream.flatMap { url -> Observable<DataResponse<Any>> in
-            return Observable<DataResponse<Any>>.create { observer in
-                Alamofire.request(url).responseJSON { response in
-                    observer.onNext(response)
-                }
-                return Disposables.create()
-            }
-        }
-        
-        _=responseStream.subscribe { event in
-            dump(event.element)
-        }
-        
+                
         return true
     }
 
