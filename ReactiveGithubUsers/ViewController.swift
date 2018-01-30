@@ -11,6 +11,10 @@ import RxSwift
 import RxCocoa
 
 class ViewController: UIViewController {
+    
+    enum Error: Swift.Error {
+        case errorSerializingJSON
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +38,34 @@ class ViewController: UIViewController {
         
         let responseStream = requestStream.flatMap { url -> Observable<Any> in
             return URLSession.shared.rx.json(url: URL(string: url)!)
+        } 
+        
+        let serializedStream = responseStream.flatMap { json in
+            return Observable<[[String: Any]]>.create { observer in
+                if let array = json as? [[String: Any]] {
+                    observer.onNext(array)
+                } else {
+                    observer.onError(Error.errorSerializingJSON)
+                }
+                observer.onCompleted()
+                return Disposables.create()
+            }
         }
         
-        _=responseStream.subscribe { event in
+        // 3 suggestions
+        
+        let suggestionsStream = serializedStream.flatMap { array in
+            return Observable<[String: Any]>.create { observer in
+                for _ in 0..<3 {
+                    let rand = Int(arc4random_uniform(UInt32(array.count)))
+                    observer.onNext(array[rand])
+                }
+                observer.onCompleted()
+                return Disposables.create()
+            }
+        }
+        
+        _=suggestionsStream.subscribe { event in
             dump(event.element)
         }
         
